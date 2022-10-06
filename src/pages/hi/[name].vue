@@ -1,5 +1,6 @@
-<script setup lang="ts">
-const props = defineProps<{ name: string }>()
+<script setup>
+import { useAuthStore } from '~/stores/authStore'
+const authStore = useAuthStore()
 const router = useRouter()
 </script>
 
@@ -7,7 +8,7 @@ const router = useRouter()
   <div>
     <div i-carbon-pedestrian text-4xl inline-block />
     <p>
-      Hi, {{ props.name }}
+      Hi, {{ authStore.name }}
     </p>
     <p text-sm op50>
       <em>Dynamic route!</em>
@@ -23,3 +24,12 @@ const router = useRouter()
     </div>
   </div>
 </template>
+
+<route lang="json">
+  {
+    "name" : "Name",
+    "meta" : {
+      "requireAuth" : true
+    }
+  }
+</route>

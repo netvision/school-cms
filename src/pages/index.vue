@@ -1,25 +1,35 @@
-<script setup lang="ts">
+<!-- eslint-disable no-console -->
+<script setup>
+import { useAuthStore } from '~/stores/authStore'
+const authStore = useAuthStore()
 const name = $ref('')
-
+const myName = ref('')
 const router = useRouter()
+const logout = () => {
+  authStore.signout()
+}
 const go = () => {
   if (name)
     router.push(`/hi/${encodeURIComponent(name)}`)
 }
+
+onMounted(() => {
+  myName.value = authStore.name
+})
 </script>
 
 <template>
   <div>
-    <div i-carbon-campsite text-4xl inline-block />
+    <div i-carbon-baggage-claim text-4xl inline-block />
     <p>
-      <a rel="noreferrer" href="https://github.com/antfu/vitesse-lite" target="_blank">
-        Vitesse Lite
-      </a>
+      <em text-sm op75>{{ myName }}</em>
     </p>
-    <p>
-      <em text-sm op75>Opinionated Vite Starter Template</em>
-    </p>
-
+    <button
+      class="m-3 text-sm btn"
+      @click="authStore.signout"
+    >
+      Logout
+    </button>
     <div py-4 />
 
     <input
@@ -48,3 +58,11 @@ const go = () => {
     </div>
   </div>
 </template>
+
+<route lang="json">
+  {
+    "meta" : {
+      "requireAuth" : true
+    }
+  }
+</route>
