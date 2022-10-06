@@ -1,16 +1,22 @@
 <!-- eslint-disable no-console -->
 <script setup>
+import { addDoc, collection, getFirestore } from 'firebase/firestore'
 import { useAuthStore } from '~/stores/authStore'
 const authStore = useAuthStore()
+const db = getFirestore()
 const name = $ref('')
 const myName = ref('')
 const router = useRouter()
 const logout = () => {
   authStore.signout()
 }
-const go = () => {
-  if (name)
-    router.push(`/hi/${encodeURIComponent(name)}`)
+const go = async () => {
+  if (name) {
+    const docRef = await addDoc(collection(db, 'profiles'), {
+      name,
+    })
+  }
+  router.push(`/hi/${encodeURIComponent(name)}`)
 }
 
 onMounted(() => {
