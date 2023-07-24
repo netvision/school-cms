@@ -1,7 +1,7 @@
 /* eslint-disable no-alert */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { defineStore } from 'pinia'
-import { GoogleAuthProvider, getAuth, onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth'
+import { GoogleAuthProvider, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -13,7 +13,18 @@ export const useAuthStore = defineStore('auth', {
   }),
   getters: {},
   actions: {
-    signIn() {
+    signIn(email, password) {
+      const auth = getAuth()
+      signInWithEmailAndPassword(auth, email, password).then((result) => {
+        const user = result.user
+        this.$router.push('/')
+      }).catch((error) => {
+        const errorCode = error.code
+        this.errorMessage = error.message
+        alert(this.errorMessage)
+      })
+    },
+    signInGoogle() {
       const auth = getAuth()
       const provider = new GoogleAuthProvider()
       signInWithPopup(auth, provider)

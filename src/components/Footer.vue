@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-col-reverse justify-between pt-5 pb-10 border-t lg:flex-row">
-    <p class="text-sm text-gray-600">
+  <div class="fixed bottom-0 z-50 w-full">
+    <p class="text-sm text-gray-600 text-center">
       &copy; All rights reserved.
     </p>
   </div>

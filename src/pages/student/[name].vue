@@ -1,39 +1,31 @@
 <!-- eslint-disable no-console -->
 <script setup>
-import { doc, getDoc, getFirestore } from 'firebase/firestore'
+import axios from 'axios'
 import { useAuthStore } from '~/stores/authStore'
 const props = defineProps({
   name: {
-    type: String,
+    type: Number,
   },
 })
-const db = getFirestore()
+console.log(props.name)
+
 const authStore = useAuthStore()
 const router = useRouter()
 const student = ref({})
 onMounted(async () => {
-  const docRef = doc(db, 'students', props.name)
-  const docSnap = await getDoc(docRef)
-
-  if (docSnap.exists()) {
-    student.value = docSnap.data()
-    console.log('Document data:', docSnap.data())
-  }
-  else {
-  // doc.data() will be undefined in this case
-    console.log('No such document!')
-  }
+  student.value = await axios.get(`https://schoolsapi.netserve.in/student-class?filter[student_id][eq]=${props.name}&expand=student,class`).then(r => r.data)
 })
 </script>
 
 <template>
-  <div>
+  <Header />
+  <div class="container">
     <div i-carbon-pedestrian text-4xl inline-block />
     <p>
-      Hi, {{ student.name }}
+      Hi, {{ student[0]?.student.name }}
     </p>
     <p text-sm op50>
-      <em>Dynamic route!</em>
+      <pre>{{ student }}</pre>
     </p>
 
     <div>
