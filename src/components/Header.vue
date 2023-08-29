@@ -16,12 +16,12 @@ const doSearch = async () => {
 </script>
 
 <template>
-  <nav x-data="{ isOpen: false }" class="bg-white dark:bg-gray-800">
+  <nav x-data="{ isOpen: false }" class="bg-orange-200 dark:bg-gray-800">
     <div class="container px-6 py-4 mx-auto">
       <div class="lg:flex lg:items-center">
         <div class="flex items-center justify-between">
           <div>
-            <a class="text-2xl font-bold text-gray-800 transition-colors duration-300 transform dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300" href="#">School Management System</a>
+            <a class="text-2xl font-bold text-gray-800 transition-colors duration-300 transform dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300" href="/">School Management System</a>
           </div>
 
           <!-- Mobile menu button -->

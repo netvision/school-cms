@@ -1,9 +1,11 @@
 <script setup>
-const router = useRouter()
-onMounted(async () => {
-  router.push('/class/1')
-})
+const props = defineProps(['id'])
 </script>
+
+<template>
+  <Header />
+  <StudentLeftMenu :id="props.id" />
+</template>
 
 <route lang="json">
   {
